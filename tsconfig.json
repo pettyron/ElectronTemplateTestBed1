@@ -1,23 +1,16 @@
 {
     "compilerOptions": {
+        "target": "es2017",
         "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
+            "ES2017",
+            "DOM"
         ],
-        "allowJs": true,
+        "module": "commonjs",
+        "incremental": true,
         "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
         "esModuleInterop": true,
         "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react"
-    },
-    "include": [
-        "src"
-    ]
+        "jsx": "react",
+        "sourceMap": true
+    }
 }
