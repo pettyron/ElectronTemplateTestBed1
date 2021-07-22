@@ -17,7 +17,13 @@ function createWindow() {
 
     console.log("env: ", process.env.ELECTRON_START_URL)
 
-    mainWindow.loadURL("http://localhost:4000");
+    const buildUrl = url.format({
+        pathname: path.join(__dirname, "../renderer/index.html"),
+        protocol: 'file:',
+        slashes: true
+    });
+
+    mainWindow.loadURL(process.env.ELECTRON_START_URL || buildUrl);
     /**
      * url.format({
             pathname: path.join(__dirname, "../renderer/index.html"),
@@ -28,6 +34,10 @@ function createWindow() {
 
     mainWindow.webContents.openDevTools({ mode: "undocked" });
     // mainWindow.webContents.loadFile("./build/index.html");
+
+    mainWindow.on("ready-to-show", function (): void {
+        mainWindow?.show();
+    })
 
     mainWindow.on('closed', () => {
         mainWindow = null;

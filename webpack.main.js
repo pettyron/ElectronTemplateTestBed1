@@ -1,6 +1,7 @@
 // import path from "path";
 /* eslint-disable */
 const path = require("path");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = (_, args) => {
     const mode = args.mode || "development";
@@ -28,19 +29,16 @@ module.exports = (_, args) => {
                 {
                     test: /\.(ts|js)x?$/i,
                     exclude: /node_modules/,
-                    use: {
-                        loader: "babel-loader",
-                        options: {
-                            presets: [
-                                "@babel/preset-env",
-                                "@babel/preset-react",
-                                "@babel/preset-typescript",
-                            ],
-                        },
-                    },
+                    use: [
+                        { loader: "ts-loader", options: { transpileOnly: true } }
+                        // {
+                        //     loader: "babel-loader"
+                        // }
+                    ]
                 }
             ]
         },
+        plugins: [new ForkTsCheckerWebpackPlugin()],
         node: { __dirname: false }
     }
 };

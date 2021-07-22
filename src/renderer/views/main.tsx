@@ -1,5 +1,5 @@
 import React from "react";
-import { hot } from "react-hot-loader";
+import { hot } from "react-hot-loader/root";
 
 interface Props {
     title?: string;
@@ -13,4 +13,4 @@ export const MainView: React.FC<Props> = () => {
     );
 }
 
-export const AppRoot = hot(module)(MainView);
+export const AppRoot = hot(MainView);

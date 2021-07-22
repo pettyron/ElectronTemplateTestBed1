@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { MainView } from "./views/main";
+import { AppRoot } from "./views/main";
 
-const root = document.getElementById("app");
+const root = document.createElement("div");
+document.body.appendChild(root);
 
-ReactDOM.render(<MainView />, root);
+ReactDOM.render(<AppRoot />, root);
