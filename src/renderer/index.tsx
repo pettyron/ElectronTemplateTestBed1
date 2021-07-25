@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { AppRoot } from "./views/main";
+import { MainView } from "./views/main";
 
-const root = document.createElement("div");
-document.body.appendChild(root);
+const root = document.getElementById("app");
 
-ReactDOM.render(<AppRoot />, root);
+ReactDOM.render(<MainView title="Electron Base Template" />, root);
+
+if (module.hot) {
+    module.hot.accept();
+}

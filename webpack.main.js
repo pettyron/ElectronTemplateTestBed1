@@ -1,4 +1,3 @@
-// import path from "path";
 /* eslint-disable */
 const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
@@ -10,18 +9,16 @@ module.exports = (_, args) => {
     return {
         target: "electron-main",
         mode,
-        entry: "./src/main/main.ts",
+        entry: ["./src/main/main.ts"],
         optimization: {
-            minimize: !isDevMode
+            minimize: !isDevMode,
         },
         output: {
             filename: "main.js",
-            path: path.resolve(__dirname, "build/main")
+            path: path.resolve(__dirname, "build/main"),
         },
         resolve: {
             extensions: [".ts", ".tsx", ".js"],
-            mainFields: ["main", "module", "browser"],
-            modules: [path.join(__dirname, "./node_modules")]
         },
         devtool: "inline-source-map",
         module: {
@@ -30,15 +27,15 @@ module.exports = (_, args) => {
                     test: /\.(ts|js)x?$/i,
                     exclude: /node_modules/,
                     use: [
-                        { loader: "ts-loader", options: { transpileOnly: true } }
-                        // {
-                        //     loader: "babel-loader"
-                        // }
-                    ]
-                }
-            ]
+                        {
+                            loader: "ts-loader",
+                            options: { transpileOnly: true },
+                        },
+                    ],
+                },
+            ],
         },
         plugins: [new ForkTsCheckerWebpackPlugin()],
-        node: { __dirname: false }
-    }
+        node: { __dirname: false },
+    };
 };

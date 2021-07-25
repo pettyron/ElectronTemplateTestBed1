@@ -15,8 +15,6 @@ function createWindow() {
         },
     });
 
-    console.log("env: ", process.env.ELECTRON_START_URL)
-
     const buildUrl = url.format({
         pathname: path.join(__dirname, "../renderer/index.html"),
         protocol: 'file:',
@@ -24,16 +22,7 @@ function createWindow() {
     });
 
     mainWindow.loadURL(process.env.ELECTRON_START_URL || buildUrl);
-    /**
-     * url.format({
-            pathname: path.join(__dirname, "../renderer/index.html"),
-            protocol: 'file:',
-            slashes: true
-        })
-     */
-
     mainWindow.webContents.openDevTools({ mode: "undocked" });
-    // mainWindow.webContents.loadFile("./build/index.html");
 
     mainWindow.on("ready-to-show", function (): void {
         mainWindow?.show();
@@ -46,3 +35,7 @@ function createWindow() {
 
 app.on('ready', createWindow);
 app.allowRendererProcessReuse = true;
+
+if (module.hot) {
+    module.hot.accept();
+}

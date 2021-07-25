@@ -1,16 +1,14 @@
 import React from "react";
-import { hot } from "react-hot-loader/root";
 
 interface Props {
     title?: string;
 }
 
-export const MainView: React.FC<Props> = () => {
+export const MainView: React.FC<Props> = ({ title }) => {
     return (
         <div>
-            <div>I am Main</div>
+            {title ? <h1>{title}</h1> : null}
+            <p>This is the Electron Template. Scaffold React Elements and Data to fill out the project.</p>
         </div>
     );
 }
-
-export const AppRoot = hot(MainView);
