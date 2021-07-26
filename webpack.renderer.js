@@ -8,9 +8,28 @@ const webpack = require("webpack");
 const ReactRefreshTypeScript = require("react-refresh-typescript");
 
 const isDevMode = process.env.NODE_ENV !== "production";
-const tsLoaders = [];
+const plugins = [];
 
-tsLoaders.push({ loader: "ts-loader", options: { transpileOnly: true } });
+if (isDevMode) {
+    plugins.push(
+        ...[
+            new webpack.HotModuleReplacementPlugin(),
+            new ReactRefreshWebpackPlugin(),
+        ]
+    );
+}
+
+plugins.push(
+    ...[
+        new HtmlWebpackPlugin({
+            title: package.build.productName,
+            filename: "index.html",
+            template: "./src/index.template.html",
+            inject: true,
+        }),
+        new ForkTsCheckerWebpackPlugin(),
+    ]
+);
 
 module.exports = [
     {
@@ -50,17 +69,7 @@ module.exports = [
             filename: "bundle.js",
             path: path.resolve(__dirname, "build/renderer"),
         },
-        plugins: [
-            new HtmlWebpackPlugin({
-                title: package.build.productName,
-                filename: "index.html",
-                template: "./src/index.template.html",
-                inject: true,
-            }),
-            new ForkTsCheckerWebpackPlugin(),
-            new webpack.HotModuleReplacementPlugin(),
-            new ReactRefreshWebpackPlugin(),
-        ].filter(Boolean),
+        plugins: plugins.filter(Boolean),
         devServer: {
             contentBase: "./build/renderer",
             hot: true,
